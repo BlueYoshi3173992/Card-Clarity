@@ -19,10 +19,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="cards.c" />
     <ClCompile Include="logger.c" />
     <ClCompile Include="main.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="cards.h" />
     <ClInclude Include="logger.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

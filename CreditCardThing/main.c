@@ -5,6 +5,7 @@
 #include <stdbool.h>
 
 #include "logger.h"
+#include "cards.h"
 
 #define WINDOW_WIDTH 800
 #define WINDOW_HEIGHT 600
@@ -28,8 +29,6 @@ typedef struct {
 	UDim2 size;
 } WindowWidget;
 
-WindowWidget testWidget = { 0 };
-
 void alignWidget(WindowWidget widget, int width, int height) {
 	bool moveSuccess = SetWindowPos(
 		widget.hwnd,
@@ -47,21 +46,193 @@ void alignWidget(WindowWidget widget, int width, int height) {
 }
 
 void loadWindowWidgets(HWND hwnd) {
-	HWND widget = CreateWindowExW(
-		WS_EX_WINDOWEDGE,
-		L"EDIT",
-		L"Test",
-		WS_CHILD | WS_VISIBLE | ES_LEFT,
-		0, 0, 0, 0,
+	Card* cardA = testGetCard(0);
+	Card* cardB = testGetCard(1);
+	Card* cardC = testGetCard(2);
+	Card* cardD = testGetCard(3);
+	Card* cardE = testGetCard(4);
+
+	HWND cardABase = CreateWindowEx(
+		0,
+		L"STATIC",
+		getGUIDAsLPCWSTR(cardA->guid),
+		WS_CHILD | WS_VISIBLE | SS_CENTER | WS_EX_LEFT,
+		20, 10, 350, 100,
 		hwnd,
 		NULL,
 		GetModuleHandle(NULL),
 		NULL
 	);
-	testWidget.hwnd = widget;
-	testWidget.position = (UDim2){ 0, 0.2f, 0, 0.3f };
-	testWidget.size = (UDim2){ 0, 0.6f, 0, 0.4f };
-	alignWidget(testWidget, WINDOW_WIDTH, WINDOW_HEIGHT);
+
+	HWND cardAMultipliers = CreateWindowEx(
+		0,
+		L"STATIC",
+		getMultiplierInfo(*cardA),
+		WS_CHILD | WS_VISIBLE | WS_EX_LEFT,
+		390, 30, 200, 60,
+		hwnd,
+		NULL,
+		GetModuleHandle(NULL),
+		NULL
+	);
+
+	HWND cardAInfo = CreateWindowEx(
+		0,
+		L"STATIC",
+		getBaseInfo(*cardA),
+		WS_CHILD | WS_VISIBLE | WS_EX_LEFT,
+		5, 16, 350, 80,
+		cardABase,
+		NULL,
+		GetModuleHandle(NULL),
+		NULL
+	);
+
+	HWND cardBBase = CreateWindowEx(
+		0,
+		L"STATIC",
+		getGUIDAsLPCWSTR(cardB->guid),
+		WS_CHILD | WS_VISIBLE | SS_CENTER | WS_EX_LEFT,
+		20, 120, 350, 100,
+		hwnd,
+		NULL,
+		GetModuleHandle(NULL),
+		NULL
+	);
+
+
+	HWND cardBInfo = CreateWindowEx(
+		0,
+		L"STATIC",
+		getBaseInfo(*cardB),
+		WS_CHILD | WS_VISIBLE | WS_EX_LEFT,
+		5, 16, 350, 80,
+		cardBBase,
+		NULL,
+		GetModuleHandle(NULL),
+		NULL
+	);
+
+	HWND cardBMultipliers = CreateWindowEx(
+		0,
+		L"STATIC",
+		getMultiplierInfo(*cardB),
+		WS_CHILD | WS_VISIBLE | WS_EX_LEFT,
+		390, 140, 200, 60,
+		hwnd,
+		NULL,
+		GetModuleHandle(NULL),
+		NULL
+	);
+
+	HWND cardCBase = CreateWindowEx(
+		0,
+		L"STATIC",
+		getGUIDAsLPCWSTR(cardC->guid),
+		WS_CHILD | WS_VISIBLE | SS_CENTER | WS_EX_LEFT,
+		20, 230, 350, 100,
+		hwnd,
+		NULL,
+		GetModuleHandle(NULL),
+		NULL
+	);
+
+	HWND cardCMultipliers = CreateWindowEx(
+		0,
+		L"STATIC",
+		getMultiplierInfo(*cardC),
+		WS_CHILD | WS_VISIBLE | WS_EX_LEFT,
+		390, 250, 200, 60,
+		hwnd,
+		NULL,
+		GetModuleHandle(NULL),
+		NULL
+	);
+
+	HWND cardCInfo = CreateWindowEx(
+		0,
+		L"STATIC",
+		getBaseInfo(*cardC),
+		WS_CHILD | WS_VISIBLE | WS_EX_LEFT,
+		5, 16, 350, 80,
+		cardCBase,
+		NULL,
+		GetModuleHandle(NULL),
+		NULL
+	);
+
+	HWND cardDBase = CreateWindowEx(
+		0,
+		L"STATIC",
+		getGUIDAsLPCWSTR(cardD->guid),
+		WS_CHILD | WS_VISIBLE | SS_CENTER | WS_EX_LEFT,
+		20, 340, 350, 100,
+		hwnd,
+		NULL,
+		GetModuleHandle(NULL),
+		NULL
+	);
+
+	HWND cardDMultipliers = CreateWindowEx(
+		0,
+		L"STATIC",
+		getMultiplierInfo(*cardD),
+		WS_CHILD | WS_VISIBLE | WS_EX_LEFT,
+		390, 360, 200, 60,
+		hwnd,
+		NULL,
+		GetModuleHandle(NULL),
+		NULL
+	);
+
+	HWND cardDInfo = CreateWindowEx(
+		0,
+		L"STATIC",
+		getBaseInfo(*cardD),
+		WS_CHILD | WS_VISIBLE | WS_EX_LEFT,
+		5, 16, 350, 80,
+		cardDBase,
+		NULL,
+		GetModuleHandle(NULL),
+		NULL
+	);
+
+	HWND cardEBase = CreateWindowEx(
+		0,
+		L"STATIC",
+		getGUIDAsLPCWSTR(cardE->guid),
+		WS_CHILD | WS_VISIBLE | SS_CENTER | WS_EX_LEFT,
+		20, 450, 350, 100,
+		hwnd,
+		NULL,
+		GetModuleHandle(NULL),
+		NULL
+	);
+
+	HWND cardEMultipliers = CreateWindowEx(
+		0,
+		L"STATIC",
+		getMultiplierInfo(*cardE),
+		WS_CHILD | WS_VISIBLE | WS_EX_LEFT,
+		390, 470, 200, 60,
+		hwnd,
+		NULL,
+		GetModuleHandle(NULL),
+		NULL
+	);
+
+
+	HWND cardEInfo = CreateWindowEx(
+		0,
+		L"STATIC",
+		getBaseInfo(*cardE),
+		WS_CHILD | WS_VISIBLE | WS_EX_LEFT,
+		5, 16, 350, 80,
+		cardEBase,
+		NULL,
+		GetModuleHandle(NULL),
+		NULL
+	);
 
 	logMessage("Finished loading window UI.", LOG_INFO);
 }
@@ -72,11 +243,8 @@ void onWindowCreate(HWND hwnd) {
 }
 
 void onWindowResize(HWND hwnd, int width, int height) {
-	alignWidget(testWidget, width, height);
-
 	InvalidateRect(hwnd, NULL, TRUE);
 	UpdateWindow(hwnd);
-
 	return;
 }
 
@@ -108,6 +276,7 @@ LRESULT CALLBACK applicationWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPAR
 
 int main(void) {
 	initLogger();
+	initTestCards();
 
 	WNDCLASS wc = { 0 };
 	wc.lpfnWndProc = applicationWindowProc;
