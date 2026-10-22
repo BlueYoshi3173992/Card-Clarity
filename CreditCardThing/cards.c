@@ -5,8 +5,6 @@
 #include "logger.h"
 #include "cards.h"
 
-//ganyu respect
-
 const wchar_t* networkNames[] = {
 	L"Visa",
 	L"Mastercard",
@@ -20,11 +18,11 @@ const wchar_t* rewardTitles[] = {
 	L"Miles"
 };
 
-Card cardA;
-Card cardB;
-Card cardC;
-Card cardD;
-Card cardE;
+Card cardA = { 0 };
+Card cardB = { 0 };
+Card cardC = { 0 };
+Card cardD = { 0 };
+Card cardE = { 0 };
 
 Card registerCard(char* issuer, enum Network network, int annualFee, enum Reward reward, double rate) {
 	Card card = { 0 };
@@ -83,10 +81,11 @@ LPCWSTR getMultiplierInfo(Card card) {
 	swprintf_s(
 		buf,
 		256,
-		L"Airlines Multiplier = [%.2f]\nStores Multiplier = [%.2f]\nServices Multiplier = [%.2f]",
+		L"Airlines Multiplier = [%.2f]\nStores Multiplier = [%.2f]\nServices Multiplier = [%.2f]\n10$ Service purchase = [%.2f]",
 		card.multipliers[AIRLINES].multiplier,
 		card.multipliers[STORES].multiplier,
-		card.multipliers[SERVICES].multiplier
+		card.multipliers[SERVICES].multiplier,
+		calculateReward(card, SERVICES, 10)
 	);
 
 	return buf;
@@ -100,10 +99,10 @@ void addMultiplier(Card* card, enum MerchantCategory category, double multiplier
 	card->multipliers[category] = newMultiplier;
 }
 
-double calculateReward(Card* card, enum MerchantCategory category, double amount) {
-	double baseReward = amount * card->rate;
-	double multiplier = card->multipliers[category].multiplier;
-	return baseReward * multiplier;
+double calculateReward(Card card, enum MerchantCategory category, double amount) {
+	double baseReward = amount * (card.rate/100);
+	double multiplier = card.multipliers[category].multiplier;
+	return baseReward * (1 + multiplier / 100);
 }
 
 Card* testGetCard(int id) {

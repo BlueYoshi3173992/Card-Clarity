@@ -48,13 +48,11 @@ typedef struct {
 } Card;
 
 Card registerCard(char* issuer, enum Network network, int annualFee, enum Reward reward, double rate);
-
 void addMultiplier(Card* card, enum MerchantCategory category, double multiplier);
+double calculateReward(Card card, enum MerchantCategory category, double amount);
 
 Card* testGetCard(int id);
 void initTestCards();
-
-double calculateReward(Card* card, enum MerchantCategory category, double amount);
 
 LPCWSTR getGUIDAsLPCWSTR(GUID guid);
 LPCWSTR getBaseInfo(Card card);
